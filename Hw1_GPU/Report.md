@@ -26,7 +26,7 @@ ssh -i ~/.ssh/id_ed25519 alex_bondarenko2003@51.250.20.172
 ls -la
 ls -la manifests
 ```
-![Pasted image 20260531132438.png](Pasted image 20260531132438.png)
+![Pasted image 20260531132438.png](20260531132438.png)
 
 #### Подготовка операционной системы (настройка ядра и отключение swap)
 
@@ -55,7 +55,7 @@ EOF
 
 sudo sysctl --system
 ```
-![Pasted image 20260531134413.png](Pasted image 20260531134413.png)
+![Pasted image 20260531134413.png](20260531134413.png)
 
 #### Установка Kubernetes 1.34
 
@@ -79,7 +79,7 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl 
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
-![Pasted image 20260531141719.png](Pasted image 20260531141719.png)
+![Pasted image 20260531141719.png](20260531141719.png)
 
 #### Инициализация кластера и настройка сети
 
@@ -106,7 +106,7 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 kubectl get nodes -o wide
 kubectl get pods -A
 ```
-![Pasted image 20260531143400.png](Pasted image 20260531143400.png)
+![Pasted image 20260531143400.png](20260531143400.png)
 (Ранее всё уже было установлено и запущено коллегами)
 
 #### Установка Helm (пакетный менеджер для Kubernetes)
@@ -172,7 +172,7 @@ helm install monitoring prometheus-community/kube-prometheus-stack \
 ```Bash
 kubectl get pods -n monitoring
 ```
-![Pasted image 20260531190049.png](Pasted image 20260531190049.png)
+![Pasted image 20260531190049.png](20260531190049.png)
 
 Интеграция DCGM Exporter с Prometheus
 ```Bash
@@ -193,7 +193,7 @@ kubectl get secret -n monitoring monitoring-grafana \
 ```Bash
 kubectl exec -n gpu-operator ds/nvidia-driver-daemonset -- nvidia-smi
 ```
-![Pasted image 20260531190911.png](Pasted image 20260531190911.png)
+![Pasted image 20260531190911.png](20260531190911.png)
 
 #### Очистка старых задач
 
@@ -201,7 +201,7 @@ kubectl exec -n gpu-operator ds/nvidia-driver-daemonset -- nvidia-smi
 ```Bash
 kubectl delete jobs -n gpu-lab --all
 ```
-![Pasted image 20260531191419.png](Pasted image 20260531191419.png)
+![Pasted image 20260531191419.png](20260531191419.png)
 
 #### Создаем манифест с тяжелым бенчмарком
 
@@ -289,7 +289,7 @@ kubectl rollout restart -n gpu-operator daemonset/nvidia-device-plugin-daemonset
 ```Bash
 kubectl describe node "$NODE" | sed -n '/Capacity:/,/Allocatable:/p'
 ```
-![Pasted image 20260531192141.png](Pasted image 20260531192141.png)
+![Pasted image 20260531192141.png](20260531192141.png)
 
 #### Очистка старых задач и запуск новой
 
@@ -297,7 +297,7 @@ kubectl describe node "$NODE" | sed -n '/Capacity:/,/Allocatable:/p'
 ```Bash
 kubectl delete jobs -n gpu-lab --all
 ```
-![Pasted image 20260531191419.png](Pasted image 20260531191419.png)
+![Pasted image 20260531191419.png](20260531191419.png)
 
 ```Bash
 kubectl apply -f manifests/torch-benchmark-exclusive.yaml
@@ -397,7 +397,7 @@ peak_cuda_mem_gb: 6.4090
 ```
 
 Логирование в `btop`
-![Pasted image 20260531200110.png](Pasted image 20260531200110.png)
+![Pasted image 20260531200110.png](20260531200110.png)
 
 Проброс `Grafana` на сервере
 ```Bash
@@ -417,10 +417,10 @@ kubectl get secret -n monitoring monitoring-grafana -o jsonpath='{.data.admin-pa
 Вывод: `z2mHJ1RIIgeALKp8KSyYTFmEUSLqw8aazQaeJ7Uk` 
 
 Логирование в `Grafana` появилось после этих команд
-![Pasted image 20260531210301.png](Pasted image 20260531210301.png)
+![Pasted image 20260531210301.png](20260531210301.png)
 
 Логирование в `Grafana` 
-![Pasted image 20260531204204.png](Pasted image 20260531204204.png)
+![Pasted image 20260531204204.png](20260531204204.png)
 
 #### Эксперимент 2: Time-slicing
 
@@ -435,7 +435,7 @@ K8s теперь видит 4 видеокарты:
 ```Bash
 kubectl describe node "$NODE" | sed -n '/Capacity:/,/Allocatable:/p'
 ```
-![Pasted image 20260531211617.png](Pasted image 20260531211617.png)
+![Pasted image 20260531211617.png](20260531211617.png)
 
 Создаем манифест для параллельных задач
 ```Bash
@@ -510,22 +510,22 @@ done
 ```
 
 Следим за запуском подов
-![Pasted image 20260531212756.png](Pasted image 20260531212756.png)
+![Pasted image 20260531212756.png](20260531212756.png)
 
 Сбор метрик
 ```Bash
 kubectl logs -n gpu-lab -f job/torch-benchmark-ts-1
 ```
-![Pasted image 20260531213809.png](Pasted image 20260531213809.png)
+![Pasted image 20260531213809.png](20260531213809.png)
 
 Логирование в `btop`
-![Pasted image 20260531220029.png](Pasted image 20260531220029.png)
+![Pasted image 20260531220029.png](20260531220029.png)
 
 Логирование в `Grafana` снова появилось только после этих команд
-![Pasted image 20260531210301.png](Pasted image 20260531210301.png)
+![Pasted image 20260531210301.png](20260531210301.png)
 
 Логирование в `Grafana`
-![Pasted image 20260531215841.png](Pasted image 20260531215841.png)
+![Pasted image 20260531215841.png](20260531215841.png)
 
 Собираем статистику
 ```Bash
@@ -534,7 +534,7 @@ for i in 1 2 3 4; do
   kubectl logs -n gpu-lab "job/torch-benchmark-ts-$i" | tail -n 4
 done
 ```
-![Pasted image 20260531220234.png](Pasted image 20260531220234.png)
+![Pasted image 20260531220234.png](20260531220234.png)
 
 #### Анализ Эксперимента 2 (Time-slicing)
 1. **Потребление памяти:** В консоли мы видим, что каждый процесс забрал `1.7387 GB`. Умножаем на 4 процесса = `~6.95 GB`. Смотрим на наш скриншот Grafana - там `7.14 GB`. Разница в `~0.2 GB` - это базовый контекст CUDA. Всё сходится! Изоляции памяти действительно нет, процессы просто делят общую VRAM.
@@ -1228,7 +1228,7 @@ kubectl get pods -n gpu-operator
 ```Bash
 kubectl get ds -n gpu-operator
 ```
-![Pasted image 20260531223627.png](Pasted image 20260531223627.png)
+![Pasted image 20260531223627.png](20260531223627.png)
 
 логи основных демонов
 ```Bash
@@ -1449,4 +1449,4 @@ kubectl delete jobs -n gpu-lab --all
 ```Bash
 kubectl delete namespace gpu-lab
 ```
-![Pasted image 20260531224414.png](Pasted image 20260531224414.png)
+![Pasted image 20260531224414.png](20260531224414.png)
