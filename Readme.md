@@ -2,6 +2,6 @@
 
 ### Лабораторная работа №1
 
-* LINK_HERE
+* https://github.com/BondusS/HSE-GPU-course/blob/main/Hw1_GPU/Report.md
 
 **[^]** Все необходимые `Yaml`, `Логи`, дашборды из `Grafana` приведены в отчёте
