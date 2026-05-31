@@ -19,7 +19,7 @@
 ```Bash
 ssh -i ~/.ssh/id_ed25519 alex_bondarenko2003@51.250.20.172
 ```
-![Pasted image 20260531123343.png](Pasted image 20260531123343.png)
+![Pasted image 20260531123343.png](20260531123343.png)
 
 Проверил доступные директории
 ```Bash
