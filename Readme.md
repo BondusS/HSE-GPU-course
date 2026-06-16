@@ -5,3 +5,7 @@
 * https://github.com/BondusS/HSE-GPU-course/blob/main/Hw1_GPU/Report.md
 
 **[^]** Все необходимые `Yaml`, `Логи`, дашборды из `Grafana` приведены в отчёте
+
+### Лабораторная работа №2
+
+* `#TODO add a link`
